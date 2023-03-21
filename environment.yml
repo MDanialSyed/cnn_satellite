@@ -34,7 +34,6 @@ dependencies:
   - python=3.9.12
   - pyyaml
   - setuptools_scm
-  - statsmodels
   - toml
   - pip:
       - kaleido
