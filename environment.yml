@@ -1,0 +1,42 @@
+---
+name: cnn_satellite
+channels:
+  - conda-forge
+  - nodefaults
+  - pytorch
+
+dependencies:
+  - gdown
+  - widgetsnbextension
+  - ipywidgets
+  - tqdm
+  - pytorch
+  - pytorch::torchvision
+  - matplotlib
+  - pandas
+  - xgboost
+  - conda-lock
+  - ipykernel
+  - jupyterlab
+  - pandas
+  - seaborn
+  - pdbpp
+  - pip >=21.1
+  - plotly>=5.13.0
+  - pre-commit
+  - pytask-latex
+  - pytask-parallel
+  - pytask>=0.2
+  - pytest
+  - pytest-cov
+  - pytest-xdist
+  - python-graphviz
+  - python=3.9.12
+  - pyyaml
+  - setuptools_scm
+  - statsmodels
+  - toml
+  - pip:
+      - kaleido
+      - geoio
+      - sklearn
