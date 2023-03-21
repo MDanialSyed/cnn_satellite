@@ -36,6 +36,7 @@ dependencies:
   - setuptools_scm
   - toml
   - pip:
+      - -e .
       - kaleido
       - geoio
       - sklearn
