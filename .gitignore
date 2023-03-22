@@ -5,7 +5,14 @@ src/.DS_Store
 src/cnn_satellite/.DS_Store
 src/cnn_satellite/data/.DS_Store
 src/cnn_satellite/data/.DS_Store
+<<<<<<< Updated upstream
+=======
+src/.DS_Store
+src/.DS_Store
+paper/.DS_Store
+>>>>>>> Stashed changes
 *.png
 *.pyc
 src/cnn_satellite/data/sat_images.zip
 src/cnn_satellite/data/nightlights_data/viirs_2015.tif
+.ipynb_checkpoints/Untitled-checkpoint.ipynb
