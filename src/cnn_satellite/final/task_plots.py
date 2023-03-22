@@ -19,14 +19,14 @@ from cnn_satellite.utilities import read_yaml
 
 def task_cons_nlight(depends_on, produces):
 
-    # Relationship between nightlights and consumptuon - create scatterplot with regression line
+    # Relationship between nightlights and consumption - create scatterplot with regression line
     df = pd.read_stata(depends_on["nlight_proc"])
     plt.figure(figsize=(8,5))
     sns.regplot(x='nightlights', y='cons_pc', data=df, ci=None)
-    plt.ylabel('Consumption Per Capita');plt.xlabel('Mean Nightlight Intensity')
+    plt.ylabel('Consumption Per Capita',fontsize = 12);plt.xlabel('Mean Nightlight Intensity',fontsize = 12)
     plt.ylim(0, 4)
     plt.xlim(0, 10)
-    plt.title('Average Nightlight Intensity and Consumption Expenditure')
+    plt.title('Average Nightlight Intensity and Consumption',fontsize = 15)
     plt.savefig(produces["cons_nlight"], bbox_inches='tight')
     plt.clf()
     pass
@@ -53,9 +53,9 @@ def task_GMM_nlight(depends_on, produces):
     plt.legend()
     plt.ylim(0, 1.0)
     plt.rcParams['axes.grid'] = True
-    plt.xlabel('Nightlight Intensity')
-    plt.ylabel('Density')
-    plt.title('Density of Nightlight Intensity by Class')
+    plt.xlabel('Nightlight Intensity',fontsize = 12)
+    plt.ylabel('Density',fontsize = 12)
+    plt.title('Density of Nightlight Intensity by Class',fontsize = 15)
     plt.savefig(produces["nlight_density"], bbox_inches='tight')
     plt.clf()
     pass
@@ -75,11 +75,11 @@ def task_cnn_ridge(depends_on, produces):
 
     plt.figure(figsize=(8,5))
     sns.regplot(x=np.exp(Y), y=np.exp(yhat),ci=None)
-    plt.ylabel('Predicted Consumption');plt.xlabel('Actual Consumption')
+    plt.ylabel('Predicted Consumption',fontsize = 12);plt.xlabel('Actual Consumption',fontsize = 12)
     plt.ylim(0, 3)
     plt.xlim(0, 5)
     plt.text(4, 1, f'r^2={round(rsq, 2)}', size=12)
-    plt.title('Actual and Predicted Consumption per Capita from CNN-Ridge')
+    plt.title('Actual and Predicted from CNN-Ridge',fontsize = 15)
     plt.savefig(produces["cnn_fit"], bbox_inches='tight')
     plt.clf()
     pass
@@ -102,10 +102,10 @@ def task_feature_pca(depends_on, produces):
     # Create the visualization plot
     plt.bar(range(0,len(exp_var_pca)), exp_var_pca, alpha=0.5, align='center', label='Individual explained variance')
     plt.step(range(0,len(cum_sum_eigenvalues)), cum_sum_eigenvalues, where='mid',label='Cumulative explained variance')
-    plt.ylabel('Explained variance ratio')
-    plt.xlabel('Principal component index')
+    plt.ylabel('Explained variance ratio',fontsize = 12)
+    plt.xlabel('Principal component index',fontsize = 12)
     plt.xlim(0, 100)
-    plt.legend(loc='best')
+    plt.legend(loc='best',prop={'size': 12})
     plt.savefig(produces["pca_fit"], bbox_inches='tight')
     plt.clf()
     pass
