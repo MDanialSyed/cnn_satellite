@@ -5,7 +5,7 @@ requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.0"]
 write_to = "src/cnn_satellite/_version.py"
 
 [tool.pytask.ini_options]
-paths = ["./src/cnn_satellite", "./"]
+paths = ["./src/cnn_satellite", "./paper"]
 infer_latex_dependencies = true
 
 [tool.ruff]

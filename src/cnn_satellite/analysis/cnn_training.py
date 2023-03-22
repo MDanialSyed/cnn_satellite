@@ -187,5 +187,5 @@ def model_execute(epochs):
     # Train and evaluate vgg
     model_ft, hist = train_model(model_ft, dataloaders_dict, criterion, optimizer_ft, device, num_epochs=num_epochs)
     
-    return model_ft
+    return model_ft, hist
     

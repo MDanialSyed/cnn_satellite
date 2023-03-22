@@ -41,11 +41,21 @@ def task_GMM(depends_on, produces):
 )
 
 @pytask.mark.persist
-@pytask.mark.produces({"cnn_model": BLD / "python" / "model" / "cnn_model.pt"})
+@pytask.mark.produces(
+    {
+        "cnn_model": BLD / "python" / "model" / "cnn_model.pt",
+        "cnn_hist": BLD / "python" / "model" / "cnn_model.csv",
+    }
+)
 def task_CNN_train(depends_on,produces):
     
     # Execute CNN model transfer learning
-    cnn_model = cnn_training.model_execute(epochs=2)
+    cnn_model, cnn_history = cnn_training.model_execute(epochs=6)
+    
+    dict = {'Validation Accuracy':cnn_history}  
+    cnn_hist = pd.DataFrame(dict) 
+    
+    cnn_hist.to_csv(produces["cnn_hist"]) 
     torch.save(cnn_model, produces["cnn_model"])
     pass
 
