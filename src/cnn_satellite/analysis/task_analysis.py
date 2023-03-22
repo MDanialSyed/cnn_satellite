@@ -50,7 +50,7 @@ def task_GMM(depends_on, produces):
 def task_CNN_train(depends_on,produces):
     
     # Execute CNN model transfer learning
-    cnn_model, cnn_history = cnn_training.model_execute(epochs=6)
+    cnn_model, cnn_history = cnn_training.model_execute(epochs=5)
     
     dict = {'Validation Accuracy':cnn_history}  
     cnn_hist = pd.DataFrame(dict) 
@@ -82,7 +82,6 @@ def task_feature_extraction(depends_on, produces):
                                                          depends_on["cnn_model"],
                                                          image_locs_bin)
     features_data.to_stata(produces["features_data"])
-    a= 6 
     pass
     
 @pytask.mark.depends_on({"features_data": BLD / "python" / "data" / "features_data.dta",})
@@ -97,10 +96,11 @@ def task_ML_prediction(depends_on, produces):
     
     # Train various models to predict consumption from nighlight data and save the R2 estimate in a TeX file
     data = pd.read_stata(depends_on["features_data"])
-    Y, X_pca, X_nlight = aux_functions.data_ML_feed(data)
+    Y, X_nlight, X_pca = aux_functions.data_ML_feed(data)
     
-    estim_data_ML, estim_data_CNN  = ML_pred.ML_estim_func(Y, X_pca, X_nlight)
+    estim_data_ML, estim_data_CNN = ML_pred.ML_estim_func(Y, X_pca, X_nlight)
     estim_data_ML.to_latex(buf = produces["ML_estims"]) 
     estim_data_CNN.to_latex(buf = produces["CNN_estims"])
+ 
     pass
     

@@ -38,6 +38,6 @@ def data_ML_feed(df):
     pca = PCA()
     X_pca = pca.fit_transform(X)
     X_pca = pd.DataFrame(X_pca)
-    X_pca = X_pca.loc[:, 0:9]
-    
+    X_pca = X_pca.loc[:, 0:30]
+
     return Y, X_nlight, X_pca 

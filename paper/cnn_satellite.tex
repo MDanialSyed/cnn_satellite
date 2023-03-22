@@ -80,11 +80,11 @@
 \section{Introduction} % (fold)
 \label{sec:introduction}
 
-A key challenge in tracking progress on poverty eradication goals is the unusual difficulty of obtaining administrative survey data in many regions most affected by poverty. This unavailability is due to the time-consuming and cost-prohibitive nature of conducting large-scale surveys. At the same time, any serious progress on poverty eradication goals necessitates that we are able track poverty in a timely and reliable manner. This calls for innovative modeling techniques to bridge this data gap by drawing on cheap and abundant sources of data as an alternative to household surveys, to track economic outcomes.
+A key challenge in tracking progress on poverty eradication goals is the unusual difficulty of obtaining administrative survey data in many regions most affected by poverty. This unavailability is due to the time-consuming and cost-prohibitive nature of conducting large-scale surveys. At the same time, any serious progress on poverty eradication goals necessitates that we are able track poverty in a timely and reliable manner. This calls for innovative modeling techniques to bridge this data gap by drawing on cheap and abundant sources of data as an alternative to household surveys.
 
 The current replication project examines one way to do this following \citet{jean2016combining} by using deep learning along with high resolution daytime satellite imagery and nightlight data to quantify poverty in Malawi. Since satellite imagery does not explicitly capture the vast differences in wealth between regions of a country, transfer learning is deployed to help the model extract economically relevant features from thousands of unstructured satellite images. More specifically, higher nightlights intensity typically indicates a given region is more developed than a region with lower nightlights. This nightlight data can be used to extract landscape features in daytime imagery that are correlated with economic outcomes, such as roads, farmlands, waterways, roof, and urban areas. In the final step, the trained model can be used to predict village level wealth as measured by traditional surveys. 
 
-The contribution of this project is to create a seamless, reproducible workflow for \textit{Combining satellite imagery and machine learning to predict poverty} \citep{jean2016combining} to show how satellite imagery can be easily integrated into economists' research and programming pipelines. Currently, the layout of the original replication kit and related repositories on Github involve considerable work to obtain and manage the data, and run several scripts in a particular order to produces the desired results. This complexity may disincentivize the ability of new users to alter model parameters and build on the work. I ameliorate this issue by integrating all scripts and tasks in a coordinated `pytask` framework. In doing so, I utilize the CNN method to estimate consumption expenditure in Malawi and attempt to match the $R^2$ from the authors' model, with an emphasis on highlighting the several programming steps involved in such an analysis, from data collection to prediction. 
+The contribution of this project is to create a seamless, reproducible workflow for \textit{Combining satellite imagery and machine learning to predict poverty} \citep{jean2016combining} to exemplify how unconventional forms of data can be easily integrated into economists' research and programming pipelines. Currently, the layout of the original replication kit and related repositories on GitHub involve considerable work to obtain and manage the data, and run several scripts in a particular order to produces the desired results. This complexity may disincentivize the ability of new users to alter model parameters and build on the work. I ameliorate this issue by integrating all scripts and tasks in a coordinated `pytask` framework. In doing so, I utilize the CNN method to estimate consumption expenditure in Malawi and attempt to match the $R^2$ from the authors' model, with an emphasis on highlighting the several programming steps involved in such an analysis, from data collection to prediction. 
 
 \subsection{Convolutional Neural Networks (CNN)}
 
@@ -106,7 +106,7 @@ This scanning process is referred to as a convolution. More specifically, the fi
  The data collection phase has the following steps: \vspace{-0.2cm}
 \begin{enumerate}
 	\item Survey data: The household survey data used is the LSMS Malawi Survey Data (2016), which can be obtained for free from the World Bank website following a brief registration.\footnote{The original study used 2013 data but, at the time of this project, this was not available on the microdata website.} The specific data used is consumption from the aggregate consumption file (\textit{ihs4 consumption aggregate.dta}) and surveyed households' geographic information (\textit{householdgeovariablesihs4.dta}) for latitudinal and longitudinal coordinates. Consumption expenditure is the variable we are trying to predict at (roughly) the village level.
-	\item nightlights data: Obtained from the website of the Earth Observation Group. After navigating to the site and registering, one needs to download the appropriate annual nightlights composite (2015) which has '00N060W' in the file name. In the study, nightlights are used in the transfer learning step.
+	\item Nightlights data: Obtained from the website of the Earth Observation Group. After navigating to the site and registering, one needs to download the appropriate annual nightlights composite (2015) which has '00N060W' in the file name. In the study, nightlights are used in the transfer learning step.
 	\item Daytime satellite imagery: I used Google Maps Static API, similar to the paper. These data were obtained using an API access call in Python. A high-dimensional feature matrix is extracted from these images to predict consumption.
 \end{enumerate}
 
@@ -144,7 +144,7 @@ Before we can begin to train the model, we need to separate the daytime satellit
 
 \end{figure}
 
- Unsurprisingly, the bin created for no nightlight shows a degenerate distribution since many cluster had zero averages in the processed dataset. The above sample images show that the area classified as high light according to GMM thresholds is more densely populated with greater infrastructure, more expansive road networks, and buildings compared to the area that would be classified as low light. These are exactly the economically relevant features that the CNN will learn to identify when classifying the images into their bins. 
+ Unsurprisingly, the bin created for no nightlight shows a degenerate distribution since many cluster had zero averages in the processed dataset. The sample images in the figure below exemplify that an area classified as high light according to GMM thresholds is more densely populated with greater infrastructure, more expansive road networks, and buildings compared to the area classified as low light. These are exactly the economically relevant features that the CNN will learn to identify when classifying the images into three separate classes. 
 
 \begin{figure}%
     \centering
@@ -152,20 +152,20 @@ Before we can begin to train the model, we need to separate the daytime satellit
     \qquad
     \subfloat[\centering High light]{{\includegraphics[width=5cm]{high_light.png} }}%
     \caption{Sample from nightlight bins identified by GMM.}%
-    \label{fig:example}%
+    \label{img_light}%
 \end{figure}
 
 \subsection{Transfer Learning}
 
  Now that bins are created and all satellite images are grouped into their respective bins, the first step in model training is to initialize a pre-trained model. In my replication, I deploy the state-of-the-art \textit{VGG11\_BN} developed by \citet{simonyan2014very} using weights that have been pre-trained on the ImageNet database. In the second step, the model is optimized further by training it to predict nightlight intensities from the associated input daytime satellite imagery.
 
- Here I draw on the Pytorch library which consists of a range of CNN model choices and use the finetuning functions written by \citet{pytut} for implementation. The code was modified so that the first 10 epochs perform fine-tuning - that is, updating all model parameters, and last ten perform feature extraction where only the output layer weights are updated taking the pre-trained model parameters are given. In my configuration, the number of classes is set to 3 since there are 3 nightlight bins and number of epochs set to 2.\footnote{The low number of epochs is a significant limitation on subsequent results, but is necessary due to hardware limitations since even one epoch can take several hours to complete.}
+ Here I draw on the Pytorch library which consists of a range of CNN model choices and use the finetuning functions written by \citet{pytut} for implementation. The code was modified so that the first 2 epochs perform fine-tuning - that is, updating all model parameters, and after that perform feature extraction where only the output layer weights are updated taking the pre-trained model parameters are given. In my configuration, the number of classes is set to 3 since there are 3 nightlight bins and number of epochs set to 4.\footnote{Setting a low number of epochs is a  limitation on subsequent results since model accuracy was found to improve with more epochs in separate experiments, but is necessary due to current hardware limitations since model training is a computational intensive task.}
 
 \section{Predicting Poverty using Machine Learning }
 
 \subsection{Nightlight Intensity and Consumption}
 
- We can fit a variety of modern machine learning models to predict consumption expenditures in the data. First, I assess model performance of using nightlight data alone to predict (log) consumption by compare the $R^2$ obtained from Random Forest, LASSO, Ridge, Bayesian Ridge, XGBoost, and a simple linear model. Following the methodology in \citet{jean2016combining}, these models are evaluated using the average $R^2$ across K-fold cross validation. I provide estimates for both 5-fold and 10-fold cross validations.
+ We can fit a variety of modern machine learning models to predict consumption expenditures in the data. First, I assess model performance of using nightlight data alone to predict (log) consumption by compare the $R^2$ obtained from Random Forest, Ridge, Bayesian Ridge, XGBoost, and a simple linear model. Following the methodology in \citet{jean2016combining}, these models are evaluated using the average $R^2$ across K-fold cross validation. I provide estimates for both 5-fold and 10-fold cross validations.
 
 \begin{table}[H]
 \centering
@@ -179,7 +179,7 @@ Before we can begin to train the model, we need to separate the daytime satellit
 
  The trained CNN model is now used to extract feature vectors for each image, which are a nonlinear mapping of the input images to their vector representations. The extraction occurs just before the image classification step. This result is an $n$ x $p$ dimensional matrix, where $n = 11,560$ (all satellite images) and $p = 4096$, the feature vectors for each image. The images were grouped according to their household-clusters and aggregated at this level using the mean. This process reduces the original matrix to $\textbf{X}$, a 780 by 4096 feature matrix, and outcome $\textbf{Y}$ a vector for consumption per capita. The goal is to use these features extracted from satellite images, instead of directly using nightlights, to predict consumption expenditure.
 
- However, using such a high dimensional dataset for prediction can be problematic and caused convergence issues when training certain ML models such as LASSO. Therefore, instead of using the entire feature matrix for training these models, I first perform dimensionality reduction guided by principal component analysis. The figure below shows the cumulative variance explained by these components. 
+ However, using such a high dimensional dataset for prediction can be time consuming and caused convergence issues when training certain ML models. Therefore, instead of using the entire feature matrix for training these models, I first perform dimensionality reduction guided by principal component (PC) analysis. The figure below shows the cumulative variance explained by these components. 
 
 \begin{figure}[H]
 \centering
@@ -188,15 +188,15 @@ Before we can begin to train the model, we need to separate the daytime satellit
     \label{fig:python-predictions}
 \end{figure}
 
- The first hundred components explain 97.5\% of the variation, therefore only these components are retained for model training. ML models are once again used to predict the (log) consumption expenditure.
+ The first thirty components explain 75\% of the variation, therefore only these components are retained for model training. ML models are once again used to predict the (log) consumption expenditure.
 
 \begin{table}[H]
 \centering
     \scalebox{1.1}{\input{../bld/python/tables/table_CNN_estims.tex}}
-	\caption{Estimates from using various ML models to predict consumption per capita using $R^2$ as the performance measure.}
+	\caption{Estimates from using various ML models to predict consumption from the first thirty PCs extracted from the CNN features matrix and using $R^2$ as the performance measure.}
 \end{table}
 
- Overall these ML models trained with CNN features data have a similar $R^2$  compared to ML trained with nightlight data, when this measure is computed using 5-Fold cross validation. However, the $R^2$ maxima tend to be higher on ML trained with nightlights data. Some models such as LASSO and XGBoost perform poorly when trained on the nightlight data or CNN features data. Whilst, in general, Ridge is the best performing model. Therefore, as a final illustration I plot the predicted consumption values against actual consumption from a cross-validated ridge regression as shown below.
+ Overall these ML models trained with CNN features data have a lower $R^2$  compared to ML trained with nightlight data using either 5-fold or 10-fold cross validation. Some models such as XGBoost perform poorly when trained on the nightlight data or CNN features data whereas Random Forest is improved using latter. Whilst, in general, Ridge is the best performing model. As a final illustration I plot the actual consumption against values predicted by a cross-validated ridge regression using the first ten PCs from CNN features data.
 
 \begin{figure}[H]
 \centering
@@ -205,9 +205,9 @@ Before we can begin to train the model, we need to separate the daytime satellit
     \label{fig:python-predictions}
 \end{figure}
 
- These results suggest that, in some cases, using information extracted using nightlights data can be more useful than nightlights data itself when quantifying economic outcomes such as consumption expenditure. Therefore, in replicating the study by \citet{jean2016combining}, this project highlights the promising role of satellite imagery for economic analysis. 
+Based on these results, there is some limited evidence that using information extracted using nightlights data can be more useful than nightlights data itself when quantifying economic outcomes such as consumption expenditure. Therefore, in replicating the study by \citet{jean2016combining}, this project highlights the promising role of satellite imagery for economic analysis. 
 
- Nonetheless, the project approaches but is not able to replicate the $R^2$ in the original paper. There are various factors that can account for this difference. The first reason is that the results in the original paper for Malawi were based on data from 2013. On the other hand, I use 2016 survey and nightlights data. In addition, the satellite images downloaded were from the most recent years and so it is difficult to quantify how big of a difference this mis-match would have made. Finally, computational bottlenecks limited the number of CNN models I could experiment with and the number of epochs for improving model loss and accuracy. These factors provide avenues for further extensions of the project. 
+ Nonetheless, the project approaches but is not able to fully reproduce the benchmark $R^2$ of 0.37 for Malawi obtained in the original paper. There are various factors that can account for this difference. The first reason is that the results in the original paper were based on Malawi data from 2013. On the other hand, I use 2016 survey and nightlights data. In addition, the satellite images downloaded were from the most recent years and so it is difficult to quantify how big of a difference this mis-match in years would have made. Finally, computational bottlenecks limited the number of CNN models I could experiment with and the number of epochs for improving model loss and accuracy. These factors provide avenues for further extensions of the project. 
 
 \setstretch{1}
 \printbibliography
