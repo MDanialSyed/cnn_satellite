@@ -19,7 +19,7 @@ The key contribution of this replication project is to conduct data management, 
 
 This project was created with [cookiecutter](https://github.com/audreyr/cookiecutter) and the [econ-project-templates](https://github.com/OpenSourceEconomics/econ-project-templates) and has the following setup:
 
-- `data`: LSMS survey data and download location for satellite data and VIIRS nightlights data.
+- `data`: LSMS survey data and download destination for satellite data and VIIRS nightlights data.
 - `data_management`: code to process and merge relevant data.
 - `helper_codes`: auxiliary functions used in data managemenmt, model training, and prediction.
 - `analysis`: analysis codes of data using machine learning and CNN.
