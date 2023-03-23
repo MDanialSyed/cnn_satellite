@@ -25,13 +25,13 @@ This project was created with [cookiecutter](https://github.com/audreyr/cookiecu
 - `analysis`: analysis codes of data using machine learning and CNN.
 - `final`: codes and tasks responsible for generating final plot. 
 - `test`: functions to check the expected output of various project phases. 
-- `paper`: compiled and create term paper
+- `paper`: compiled and create term paper.
 
 ## Usage
 
 The following directions are for reproducing this project:
 
-1. To get started, clone this repository and navigate to the root directory.
+1. To get started, clone this repository and navigate to its root directory.
 2. Open a terminal window and execute these commands to create and activate the project.
 
 ```console
