@@ -1,6 +1,10 @@
 # Convolutional Neural Networks and Satellite Imagery for Economic Analysis
 ###### Author: M.Danial Syed
 
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/MDanialSyed/cnn_satellite/main.svg)](https://results.pre-commit.ci/latest/github/MDanialSyed/cnn_satellite/main)
+ [![image](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+
+
 <img src="https://github.com/MDanialSyed/cnn_satellite/blob/main/paper/high_light.png" width="260"> <img src="https://github.com/MDanialSyed/cnn_satellite/blob/main/paper/active_hl.png" width="250">
 
 *(Activation Map of an image using a VGG_11 network, produced using [PyTorch Visualization Tool](https://github.com/utkuozbulak/pytorch-cnn-visualizations)*)
