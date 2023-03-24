@@ -1,6 +1,7 @@
 """Tasks for training ML models, GMM model, and CNN model."""
 
 import pandas as pd
+import numpy as np
 import pytask
 import torch
 import pickle
@@ -40,21 +41,18 @@ def task_GMM(depends_on, produces):
     } 
 )
 
-@pytask.mark.persist
 @pytask.mark.produces(
     {
         "cnn_model": BLD / "python" / "model" / "cnn_model.pt",
-        "cnn_hist": BLD / "python" / "model" / "cnn_model.csv",
+        "cnn_hist": BLD / "python" / "model" / "cnn_hist.csv",
     }
 )
 def task_CNN_train(depends_on,produces):
     
     # Execute CNN model transfer learning
     cnn_model, cnn_history = cnn_training.model_execute(epochs=5)
-    
-    dict = {'Validation Accuracy':cnn_history}  
-    cnn_hist = pd.DataFrame(dict) 
-    
+    cnn_hist = pd.DataFrame({"Validation Accuracy": np.array(cnn_history)})
+
     cnn_hist.to_csv(produces["cnn_hist"]) 
     torch.save(cnn_model, produces["cnn_model"])
     pass
