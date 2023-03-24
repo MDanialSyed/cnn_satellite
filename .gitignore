@@ -16,3 +16,5 @@ paper/.DS_Store
 src/cnn_satellite/data/sat_images.zip
 src/cnn_satellite/data/nightlights_data/viirs_2015.tif
 .ipynb_checkpoints/Untitled-checkpoint.ipynb
+paper/.DS_Store
+src/cnn_satellite/final/.DS_Store
