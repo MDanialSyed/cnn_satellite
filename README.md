@@ -13,7 +13,7 @@ This repository contains my final project based on 'Combining satellite imagery 
 
 ## Replication project
 
-The key contribution of this replication project is to conduct data management, model training, and prediction of consumption expenditure in a reproducible and accessible way. The reason for this is that the original study and related works required considerable manual effort to obtain multiple data files and run several scripts to reproduce results. I ameliorate this complexity by instead drawing on `pytask` as a workflow management system, which is well-suited to a project of this scale. In doing so, this project draws on concepts from this course and demonstrates Python's rich scientific libraries in the process, thus providing a suitable platform for users to easily scale up this work in the future.
+The key contribution of this replication project is to conduct data management, model training, and prediction of consumption expenditure in a reproducible and accessible way. The reason for this is that the [original study](https://github.com/nealjean/predicting-poverty) and related works required considerable manual effort to obtain multiple data files and run several scripts to reproduce results. I ameliorate this complexity by instead drawing on `pytask` as a workflow management system, which is well-suited to a project of this scale. In doing so, this project draws on concepts from this course and demonstrates Python's rich scientific libraries in the process, thus providing a suitable platform for users to easily scale up this work in the future.
 
 ## Repository guide
 
