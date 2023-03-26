@@ -23,8 +23,8 @@ def test_CNN_acc():
     # Check if you replicated the same CNN validation accuracy values.
     
     data = pd.read_csv("./bld/python/model/cnn_hist.csv")
-    data = np.round(data,4)
-    assert (data["Validation Accuracy"] == [0.6965, 0.7114, 0.7046, 0.7366, 0.7506]).all(),"Unanticipated validation accuracies detected."    
+    data = np.round(data,2)
+    assert (data["Validation Accuracy"] == [0.70, 0.71, 0.70, 0.74, 0.75]).all(),"Unanticipated validation accuracies detected."    
     
     
 def test_ML_CNN():

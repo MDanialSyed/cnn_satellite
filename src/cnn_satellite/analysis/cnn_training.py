@@ -6,7 +6,7 @@ import torchvision
 from torchvision import datasets, models, transforms
 from torchvision.models import VGG11_BN_Weights
 import torch.optim as optim
-from tqdm.notebook import tqdm
+from tqdm import tqdm
 import torch.nn as nn
 import time
 import copy

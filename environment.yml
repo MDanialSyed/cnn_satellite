@@ -6,6 +6,7 @@ channels:
   - pytorch
 
 dependencies:
+  - gdal
   - gdown
   - widgetsnbextension
   - ipywidgets
