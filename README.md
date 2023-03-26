@@ -1,7 +1,7 @@
 # Convolutional Neural Networks and Satellite Imagery for Economic Analysis
 ###### Author: M.Danial Syed
 
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/MDanialSyed/cnn_satellite/main.svg)](https://results.pre-commit.ci/latest/github/MDanialSyed/cnn_satellite/main)
+
 [![image](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
 
