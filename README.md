@@ -2,7 +2,7 @@
 ###### Author: M.Danial Syed
 
 [![pre-commit.ci status](https://results.pre-commit.ci/badge/github/MDanialSyed/cnn_satellite/main.svg)](https://results.pre-commit.ci/latest/github/MDanialSyed/cnn_satellite/main)
- [![image](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+[![image](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
 
 <img src="https://github.com/MDanialSyed/cnn_satellite/blob/main/paper/high_light.png" width="260"> <img src="https://github.com/MDanialSyed/cnn_satellite/blob/main/paper/active_hl.png" width="250">
