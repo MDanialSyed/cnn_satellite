@@ -40,4 +40,4 @@ dependencies:
       - -e .
       - kaleido
       - geoio
-      - sklearn
+      - scikit-learn
