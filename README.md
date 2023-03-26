@@ -29,6 +29,8 @@ This project was created with [cookiecutter](https://github.com/audreyr/cookiecu
 
 ## Usage
 
+The project has been tested on macOS Monterey (Intel i5) and Windows 10 (Intel i7). For the latter to work, the commands may need to be executed through `administrator cmd` since the project's use of symlinks requires the Administrator permission to "Create symbolic links".
+
 The following directions are for reproducing this project:
 
 1. To get started, clone this repository and navigate to its root directory.
