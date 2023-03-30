@@ -23,7 +23,7 @@ This project was created with [cookiecutter](https://github.com/audreyr/cookiecu
 - `data_management`: code to process and merge relevant data.
 - `helper_codes`: auxiliary functions used in data managemenmt, model training, and prediction.
 - `analysis`: analysis codes of data using machine learning and CNN.
-- `final`: codes and tasks responsible for generating final plot. 
+- `final`: tasks responsible for generating project outputs. 
 - `test`: functions to check the expected output of various project phases. 
 - `paper`: compiled and create term paper.
 
